@@ -1,0 +1,1485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SystemControl" targetNamespace="http://www.example.org/SystemControl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.example.org/SystemControl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/SystemControl/">
+      <xsd:element name="SystemLogin">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="0" name="credential" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemLoginResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="0" name="SystemLoginResult" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="result" type="tns:ExecutionResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemRegister">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+       <xsd:element name="SystemRegisterResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="SystemRegisterResult" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="result" type="tns:ExecutionResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemLoginDigest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nonce" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="credential" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+       <xsd:element name="SystemLoginDigestResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="SystemLoginDigestResult" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="result" type="tns:ExecutionResult"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="TokenHeader" type="tns:TokenHeader"/>
+      <xsd:complexType name="TokenHeader">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Token" type="xsd:token"/>
+        </xsd:sequence>
+        <xsd:anyAttribute/>
+      </xsd:complexType>
+      <xsd:complexType name="ExecutionResult">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="tns:ExecutionCodes"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Message" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Inconsistencies" type="tns:ArrayOfInconsistency"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="ExecutionCodes">
+      	<xsd:restriction base="xsd:string">
+      		<xsd:enumeration value="Sucess"/>
+      		<xsd:enumeration value="SystemException"/>
+      		<xsd:enumeration value="InvalidParameter"/>
+      		<xsd:enumeration value="BusinessRule"/>
+      		<xsd:enumeration value="RecordNotFound"/>
+      		<xsd:enumeration value="DuplicatedRecord"/>
+      		<xsd:enumeration value="InvalidCredential"/>
+      		<xsd:enumeration value="CredentialNotFound"/>
+      		<xsd:enumeration value="InvalidPassword"/>
+      		<xsd:enumeration value="NotAllowedOperation"/>
+      		<xsd:enumeration value="NotAllowedElement"/>
+      		<xsd:enumeration value="InvalidSqlCommand"/>
+      		<xsd:enumeration value="NearRecordNumberLimitWarning"/>
+      		<xsd:enumeration value="PastRecordNumberLimitWarning"/>
+      		<xsd:enumeration value="PastRecordNumberLimitError"/>
+      		<xsd:enumeration value="InvalidDataBase"/>
+      		<xsd:enumeration value="InvalidUserDelete"/>
+      		<xsd:enumeration value="InvalidDateTimeBegin"/>
+      		<xsd:enumeration value="InvalidDateTimeEnd"/>
+      		<xsd:enumeration value="DataBaseCommunicationException"/>
+      		<xsd:enumeration value="InvalidTimeTableXML"/>
+      		<xsd:enumeration value="InvalidPINXML"/>
+      		<xsd:enumeration value="UpdatesTemporarilyUnavailable"/>
+      		<xsd:enumeration value="InvalidToken"/>
+      		<xsd:enumeration value="InvalidIP"/>
+      		<xsd:enumeration value="InvalidLogEventXML"/>
+      		<xsd:enumeration value="PendingRecords"/>
+      		<xsd:enumeration value="NoRecordsOnInterval"/>
+      		<xsd:enumeration value="CheckForPendingRecordsNeeded"/>
+      		<xsd:enumeration value="AllEventsTransmitted"/>
+      		<xsd:enumeration value="InvalidMifareDataXML"/>
+      		<xsd:enumeration value="MifareUpdateIdentificationError">
+      		</xsd:enumeration>
+      		<xsd:enumeration value="InvalidResourceTypeId"/>
+      		<xsd:enumeration value="ScriptNotFound"/>
+      		<xsd:enumeration value="ScriptInternalError"/>
+      		<xsd:enumeration value="BootLogFileNotFound"/>
+      		<xsd:enumeration value="BootLogFileUnaccessible"/>
+      		<xsd:enumeration value="OutOfMemoryError"/>
+      		<xsd:enumeration value="InvalidParametersXML"/>
+      		<xsd:enumeration value="InvalidDate"/>
+      		<xsd:enumeration value="DatabaseError"/>
+      		<xsd:enumeration value="DaylightSavingsOngoingInvalidUpdate">
+      		</xsd:enumeration>
+      		<xsd:enumeration value="DateEndBeforeDateBegin"/>
+      		<xsd:enumeration value="InvalidNumberOfMinutes"/>
+      		<xsd:enumeration value="InvalidListOfResourceIDsXML"/>
+      		<xsd:enumeration value="ErrorInsertFingerPrintSAGEM"/>
+      		<xsd:enumeration value="ErrorDeleteFingerPrintSAGEM"/>
+      		<xsd:enumeration value="InvalidDateTime"/>
+      		<xsd:enumeration value="BoardCommunicationError"/>
+      		<xsd:enumeration value="ClockChangeError"/>
+      		<xsd:enumeration value="NoTemplatesOnBoard"/>
+      		<xsd:enumeration value="InvalidCommand"/>
+      		<xsd:enumeration value="CommandInternalError"/>
+      		<xsd:enumeration value="ListConflict"/>
+      		<xsd:enumeration value="InvalidTimetableRange"/>
+      		<xsd:enumeration value="UnauthorizedClientIP"/>
+      		<xsd:enumeration value="SomePINHasTimeTableError"/>
+      		<xsd:enumeration value="InvalidPIN"/>
+      		<xsd:enumeration value="IdNotRegistered"/>
+      	</xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ArrayOfInconsistency">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Inconsistency" nillable="true" type="tns:Inconsistency"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Inconsistency">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Field" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Key" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Reason" type="tns:InconsistencyReasons"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="InconsistencyReasons">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="NullAtribute"/>
+          <xsd:enumeration value="InvalidValue"/>
+          <xsd:enumeration value="DuplicatedElement"/>
+          <xsd:enumeration value="InUseElementDelete"/>
+          <xsd:enumeration value="EndHigherThanStart"/>
+          <xsd:enumeration value="MaximumLessThanMinimum"/>
+          <xsd:enumeration value="MaximumValue"/>
+          <xsd:enumeration value="MinimumValue"/>
+          <xsd:enumeration value="ScheduleEnd"/>
+          <xsd:enumeration value="BlockedElement"/>
+          <xsd:enumeration value="ExpiredPassword"/>
+          <xsd:enumeration value="NotAllowedOperation"/>
+          <xsd:enumeration value="BlockedPassword"/>
+          <xsd:enumeration value="InvalidSchedule"/>
+          <xsd:enumeration value="InfiniteReference"/>
+          <xsd:enumeration value="InvalidSQLCommand"/>
+          <xsd:enumeration value="BlockedSQLCommand"/>
+          <xsd:enumeration value="InvalidPassword"/>
+          <xsd:enumeration value="InvalidCharacter"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="SystemSetDateTime">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="utcDateTimeString" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemSetDateTimeResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemSetDaylightSaving">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="dateTimeBeginString" type="xsd:string"/>
+      			<xsd:element name="dateTimeEndString" type="xsd:string"/>
+      			<xsd:element name="numberOfMinutes" type="xsd:int"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemSetDaylightSavingResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemInsertHoliday">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="dateString" type="xsd:string"/>
+      			<xsd:element name="description" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemInsertHolidayResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDeleteHoliday">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="dateString" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDeleteHolidayResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemInsertListRecord">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="listType" type="tns:ListType"/>
+      			<xsd:element name="fieldsXML" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemInsertListRecordResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:simpleType name="ListType">
+      	<xsd:restriction base="xsd:string">
+      		<xsd:enumeration value="PIN"/>
+      		<xsd:enumeration value="timetable"/>
+      	</xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="SystemDeleteListRecord">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="listType" type="tns:ListType"/>
+      			<xsd:element name="recordKeyXML" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDeleteListRecordResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemInsertListRecordsBatch">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="1" name="listType" type="tns:ListType"/>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="listOfFieldsXML" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemInsertListRecordsBatchResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:element name="SystemDeleteListRecordsBatch">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="listType" type="tns:ListType"/>
+      			<xsd:element name="allRecords" type="xsd:boolean"/>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="listOfrecordKeysXML" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDeleteListRecordsBatchResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:element name="SystemInsertFingerprintSAGEM">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="listOfResourceIDsXML" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element maxOccurs="1" minOccurs="1" name="pin" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element maxOccurs="1" minOccurs="1" name="template1" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="template2" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="allBiometricSAGEM" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemInsertFingerprintSAGEMResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:element name="SystemDeleteFingerprintSAGEM">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="listOfResourceIDsXML" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="allBiometricSAGEM" type="xsd:boolean">
+      			</xsd:element>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="pin" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="allPINs" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDeleteFingerprintSAGEMResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemUpdateSettings">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="boardSettingsXML" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemUpdateSettingsResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult">
+      			</xsd:element>
+      			<xsd:element name="logErrorsXML" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:element name="SystemGetNonTransmittedEvents">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="dateTimeBeginString" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="dateTimeEndString" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="idLastRecordReceived" type="xsd:int"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetNonTransmittedEventsResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="listOfLogEventRecordXML" type="xsd:string"/>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetOldestNonTransmittedEvent">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="in" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetOldestNonTransmittedEventResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="logEventRecordXML" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemChangeEventStateToTransmitted">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="listOfLogEventIDXML" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemChangeEventStateToTransmittedResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDeleteTransmittedEvents">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="dateTimeBegin" nillable="true" type="xsd:string"/>
+      			<xsd:element name="dateTimeEnd" nillable="true" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDeleteTransmittedEventsResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetTransmittedEvents">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="dateTimeBeginString" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="dateTimeEndString" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="idLastRecordReceived" type="xsd:int"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetTransmittedEventsResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="listOfLogEventRecordXML" type="xsd:string"/>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemMifareCardUpdates">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="dataXML" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemMifareCardUpdatesResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemKeepAlive">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="in" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemKeepAliveResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>      
+      <xsd:element name="SystemRunScript">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="scriptName" type="xsd:string"/>
+      			<xsd:element name="parametersXML" type="xsd:string"/>
+      			<xsd:element name="assynchronous" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemRunScriptResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="transactionID" type="xsd:string"/>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="resultDataXML" type="xsd:string"/>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemRunCommand">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="commandName" type="xsd:string"/>
+      			<xsd:element name="parametersXML" type="xsd:string"/>
+      			<xsd:element name="assynchronous" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemRunCommandResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="resultDataXML" type="xsd:string"/>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="transactionID" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetBootLog">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="idLastRecordReceived" type="xsd:int"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetBootLogResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="bootLogXML" type="xsd:string"/>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetCircularLog">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="dateTimeBeginString" type="xsd:string"/>
+      			<xsd:element name="dateTimeEndString" type="xsd:string"/>
+      			<xsd:element name="idLastRecordReceived" type="xsd:int"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetCircularLogResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="circularLogXML" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetBoardMemoryFingerprints">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="in" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemGetBoardMemoryFingerprintsResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="listOfPINTemplatesXML" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:element name="SystemDeleteFingerprintBoardMemory">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="listPINsXML" type="xsd:string"/>
+      			<xsd:element name="all" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDeleteFingerprintBoardMemoryResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDownloadBoardSettings">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="in" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemDownloadBoardSettingsResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="0" name="boardSettingsXML" type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemUpdateStandardMessage">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="idioma" type="xsd:string"/>
+      			<xsd:element name="messageLabel" type="xsd:string"/>
+      			<xsd:element name="text" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SystemUpdateStandardMessageResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="result" type="tns:ExecutionResult"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="SystemDeleteHolidayTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteHolidayRequest">
+    <wsdl:part name="parameters" element="tns:SystemDeleteHoliday">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemUpdateSettingsRequest">
+    <wsdl:part name="parameters" element="tns:SystemUpdateSettings">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemMifareCardUpdatesRequest">
+    <wsdl:part name="parameters" element="tns:SystemMifareCardUpdates">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemLoginResponse">
+    <wsdl:part name="parameters" element="tns:SystemLoginResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteFingerprintBoardMemoryTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteTransmittedEventsRequest">
+    <wsdl:part name="parameters" element="tns:SystemDeleteTransmittedEvents">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertListRecordsBatchRequest">
+    <wsdl:part name="parameters" element="tns:SystemInsertListRecordsBatch">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetBoardMemoryFingerprintsRequest">
+    <wsdl:part name="parameters" element="tns:SystemGetBoardMemoryFingerprints">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemSetDateTimeResponse">
+    <wsdl:part name="parameters" element="tns:SystemSetDateTimeResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetNonTransmittedEventsTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetOldestNonTransmittedEventRequest">
+    <wsdl:part name="parameters" element="tns:SystemGetOldestNonTransmittedEvent">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetBootLogRequest">
+    <wsdl:part name="parameters" element="tns:SystemGetBootLog">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteFingerprintSAGEMResponse">
+    <wsdl:part name="parameters" element="tns:SystemDeleteFingerprintSAGEMResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetOldestNonTransmittedEventResponse">
+    <wsdl:part name="parameters" element="tns:SystemGetOldestNonTransmittedEventResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteFingerprintSAGEMRequest">
+    <wsdl:part name="parameters" element="tns:SystemDeleteFingerprintSAGEM">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteHolidayResponse">
+    <wsdl:part name="parameters" element="tns:SystemDeleteHolidayResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteListRecordsBatchRequest">
+    <wsdl:part name="parameters" element="tns:SystemDeleteListRecordsBatch">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteListRecordResponse">
+    <wsdl:part name="parameters" element="tns:SystemDeleteListRecordResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteListRecordRequest">
+    <wsdl:part name="parameters" element="tns:SystemDeleteListRecord">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemRunScriptRequest">
+    <wsdl:part name="parameters" element="tns:SystemRunScript">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemSetDaylightSavingResponse">
+    <wsdl:part name="parameters" element="tns:SystemSetDaylightSavingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemChangeEventStateToTransmittedRequest">
+    <wsdl:part name="parameters" element="tns:SystemChangeEventStateToTransmitted">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemRunScriptTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertHolidayResponse">
+    <wsdl:part name="parameters" element="tns:SystemInsertHolidayResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDownloadBoardSettingsRequest">
+    <wsdl:part name="parameters" element="tns:SystemDownloadBoardSettings">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetBoardMemoryFingerprintsResponse">
+    <wsdl:part name="parameters" element="tns:SystemGetBoardMemoryFingerprintsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetBootLogTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertHolidayTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteTransmittedEventsTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetTransmittedEventsResponse">
+    <wsdl:part name="parameters" element="tns:SystemGetTransmittedEventsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemLoginRequest">
+    <wsdl:part name="parameters" element="tns:SystemLogin">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemSetDateTimeTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertHolidayRequest">
+    <wsdl:part name="parameters" element="tns:SystemInsertHoliday">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemRunScriptResponse">
+    <wsdl:part name="parameters" element="tns:SystemRunScriptResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemUpdateSettingsResponse">
+    <wsdl:part name="parameters" element="tns:SystemUpdateSettingsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemRunCommandTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemRegisterRequest">
+    <wsdl:part name="parameters" element="tns:SystemRegister">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteListRecordsBatchTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetNonTransmittedEventsRequest">
+    <wsdl:part name="parameters" element="tns:SystemGetNonTransmittedEvents">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemUpdateStandardMessageRequest">
+    <wsdl:part name="parameters" element="tns:SystemUpdateStandardMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemLoginDigestRequest">
+    <wsdl:part name="parameters" element="tns:SystemLoginDigest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteFingerprintSAGEMTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemRunCommandResponse">
+    <wsdl:part name="parameters" element="tns:SystemRunCommandResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetOldestNonTransmittedEventTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteListRecordTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemUpdateSettingsTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertListRecordResponse">
+    <wsdl:part name="parameters" element="tns:SystemInsertListRecordResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertFingerprintSAGEMTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemSetDateTimeRequest">
+    <wsdl:part name="parameters" element="tns:SystemSetDateTime">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemMifareCardUpdatesTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertFingerprintSAGEMResponse">
+    <wsdl:part name="parameters" element="tns:SystemInsertFingerprintSAGEMResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemLoginDigestResponse">
+    <wsdl:part name="parameters" element="tns:SystemLoginDigestResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDownloadBoardSettingsResponse">
+    <wsdl:part name="parameters" element="tns:SystemDownloadBoardSettingsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemKeepAliveResponse">
+    <wsdl:part name="parameters" element="tns:SystemKeepAliveResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertListRecordsBatchTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemUpdateStandardMessageTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemSetDaylightSavingRequest">
+    <wsdl:part name="parameters" element="tns:SystemSetDaylightSaving">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemRunCommandRequest">
+    <wsdl:part name="parameters" element="tns:SystemRunCommand">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemUpdateStandardMessageResponse">
+    <wsdl:part name="parameters" element="tns:SystemUpdateStandardMessageResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteFingerprintBoardMemoryRequest">
+    <wsdl:part name="parameters" element="tns:SystemDeleteFingerprintBoardMemory">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetNonTransmittedEventsResponse">
+    <wsdl:part name="parameters" element="tns:SystemGetNonTransmittedEventsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertFingerprintSAGEMRequest">
+    <wsdl:part name="parameters" element="tns:SystemInsertFingerprintSAGEM">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetCircularLogResponse">
+    <wsdl:part name="parameters" element="tns:SystemGetCircularLogResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetCircularLogTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemSetDaylightSavingTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertListRecordsBatchResponse">
+    <wsdl:part name="parameters" element="tns:SystemInsertListRecordsBatchResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemChangeEventStateToTransmittedResponse">
+    <wsdl:part name="parameters" element="tns:SystemChangeEventStateToTransmittedResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemKeepAliveTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDownloadBoardSettingsTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemMifareCardUpdatesResponse">
+    <wsdl:part name="parameters" element="tns:SystemMifareCardUpdatesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetBootLogResponse">
+    <wsdl:part name="parameters" element="tns:SystemGetBootLogResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertListRecordRequest">
+    <wsdl:part name="parameters" element="tns:SystemInsertListRecord">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemChangeEventStateToTransmittedTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemRegisterResponse">
+    <wsdl:part name="parameters" element="tns:SystemRegisterResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetTransmittedEventsRequest">
+    <wsdl:part name="parameters" element="tns:SystemGetTransmittedEvents">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetCircularLogRequest">
+    <wsdl:part name="parameters" element="tns:SystemGetCircularLog">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetTransmittedEventsTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteFingerprintBoardMemoryResponse">
+    <wsdl:part name="parameters" element="tns:SystemDeleteFingerprintBoardMemoryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteTransmittedEventsResponse">
+    <wsdl:part name="parameters" element="tns:SystemDeleteTransmittedEventsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemGetBoardMemoryFingerprintsTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemKeepAliveRequest">
+    <wsdl:part name="parameters" element="tns:SystemKeepAlive">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemDeleteListRecordsBatchResponse">
+    <wsdl:part name="parameters" element="tns:SystemDeleteListRecordsBatchResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemInsertListRecordTokenHeader">
+    <wsdl:part name="TokenHeader" element="tns:TokenHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SystemControlSoap">
+    <wsdl:operation name="SystemLogin">
+      <wsdl:input message="tns:SystemLoginRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemLoginResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemRegister">
+      <wsdl:input message="tns:SystemRegisterRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemRegisterResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemLoginDigest">
+      <wsdl:input message="tns:SystemLoginDigestRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemLoginDigestResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemKeepAlive">
+      <wsdl:input message="tns:SystemKeepAliveRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemKeepAliveResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemSetDateTime">
+      <wsdl:input message="tns:SystemSetDateTimeRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemSetDateTimeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemSetDaylightSaving">
+      <wsdl:input message="tns:SystemSetDaylightSavingRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemSetDaylightSavingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemInsertHoliday">
+      <wsdl:input message="tns:SystemInsertHolidayRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemInsertHolidayResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteHoliday">
+      <wsdl:input message="tns:SystemDeleteHolidayRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemDeleteHolidayResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemInsertListRecord">
+      <wsdl:input message="tns:SystemInsertListRecordRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemInsertListRecordResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteListRecord">
+      <wsdl:input message="tns:SystemDeleteListRecordRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemDeleteListRecordResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemInsertListRecordsBatch">
+      <wsdl:input message="tns:SystemInsertListRecordsBatchRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemInsertListRecordsBatchResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteListRecordsBatch">
+      <wsdl:input message="tns:SystemDeleteListRecordsBatchRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemDeleteListRecordsBatchResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemInsertFingerprintSAGEM">
+      <wsdl:input message="tns:SystemInsertFingerprintSAGEMRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemInsertFingerprintSAGEMResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteFingerprintSAGEM">
+      <wsdl:input message="tns:SystemDeleteFingerprintSAGEMRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemDeleteFingerprintSAGEMResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemUpdateSettings">
+      <wsdl:input message="tns:SystemUpdateSettingsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemUpdateSettingsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetNonTransmittedEvents">
+      <wsdl:input message="tns:SystemGetNonTransmittedEventsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemGetNonTransmittedEventsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetOldestNonTransmittedEvent">
+      <wsdl:input message="tns:SystemGetOldestNonTransmittedEventRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemGetOldestNonTransmittedEventResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemChangeEventStateToTransmitted">
+      <wsdl:input message="tns:SystemChangeEventStateToTransmittedRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemChangeEventStateToTransmittedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteTransmittedEvents">
+      <wsdl:input message="tns:SystemDeleteTransmittedEventsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemDeleteTransmittedEventsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetTransmittedEvents">
+      <wsdl:input message="tns:SystemGetTransmittedEventsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemGetTransmittedEventsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemMifareCardUpdates">
+      <wsdl:input message="tns:SystemMifareCardUpdatesRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemMifareCardUpdatesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemRunScript">
+      <wsdl:input message="tns:SystemRunScriptRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemRunScriptResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemRunCommand">
+      <wsdl:input message="tns:SystemRunCommandRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemRunCommandResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetBootLog">
+      <wsdl:input message="tns:SystemGetBootLogRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemGetBootLogResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetCircularLog">
+      <wsdl:input message="tns:SystemGetCircularLogRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemGetCircularLogResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetBoardMemoryFingerprints">
+      <wsdl:input message="tns:SystemGetBoardMemoryFingerprintsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemGetBoardMemoryFingerprintsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteFingerprintBoardMemory">
+      <wsdl:input message="tns:SystemDeleteFingerprintBoardMemoryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemDeleteFingerprintBoardMemoryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDownloadBoardSettings">
+      <wsdl:input message="tns:SystemDownloadBoardSettingsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemDownloadBoardSettingsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemUpdateStandardMessage">
+      <wsdl:input message="tns:SystemUpdateStandardMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SystemUpdateStandardMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SystemControlSOAP" type="tns:SystemControlSoap">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="SystemLogin">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemLogin"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemRegister">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemRegister"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemLoginDigest">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemLoginDigest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemKeepAlive">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemKeepAlive"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemKeepAliveTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemKeepAliveTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemSetDateTime">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemSetDateTime"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemSetDateTimeTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemSetDateTimeTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemSetDaylightSaving">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemSetDaylightSaving"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemSetDaylightSavingTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemSetDaylightSavingTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemInsertHoliday">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemInsertHoliday"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemInsertHolidayTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemInsertHolidayTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteHoliday">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemDeleteHoliday"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteHolidayTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteHolidayTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemInsertListRecord">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemInsertListRecord"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemInsertListRecordTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemInsertListRecordTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteListRecord">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemDeleteListRecord"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteListRecordTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteListRecordTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemInsertListRecordsBatch">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemInsertListRecordsBatch"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemInsertListRecordsBatchTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemInsertListRecordsBatchTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteListRecordsBatch">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemDeleteListRecordsBatch"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteListRecordsBatchTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteListRecordsBatchTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemInsertFingerprintSAGEM">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemInsertFingerprintSAGEM"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemInsertFingerprintSAGEMTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemInsertFingerprintSAGEMTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteFingerprintSAGEM">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemDeleteFingerprintSAGEM"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteFingerprintSAGEMTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteFingerprintSAGEMTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemUpdateSettings">
+      <soap:operation soapAction="http://www.example.org/SystemControl/SystemUpdateSettings"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemUpdateSettingsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemUpdateSettingsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetNonTransmittedEvents">
+      <soap:operation soapAction="http://www.example.org/SystemGetNonTransmittedEvents"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetNonTransmittedEventsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetNonTransmittedEventsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetOldestNonTransmittedEvent">
+      <soap:operation soapAction="http://www.example.org/SystemGetOldestNonTransmittedEvent"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetOldestNonTransmittedEventTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetOldestNonTransmittedEventTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemChangeEventStateToTransmitted">
+      <soap:operation soapAction="http://www.example.org/SystemChangeEventStateToTransmitted"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemChangeEventStateToTransmittedTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemChangeEventStateToTransmittedTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteTransmittedEvents">
+      <soap:operation soapAction="http://www.example.org/SystemDeleteTransmittedEvents"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteTransmittedEventsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteTransmittedEventsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetTransmittedEvents">
+      <soap:operation soapAction="http://www.example.org/SystemGetTransmittedEvents"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetTransmittedEventsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetTransmittedEventsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemMifareCardUpdates">
+      <soap:operation soapAction="http://www.example.org/SystemMifareCardUpdates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemMifareCardUpdatesTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemMifareCardUpdatesTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemRunScript">
+      <soap:operation soapAction="http://www.example.org/SystemRunScript"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemRunScriptTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemRunScriptTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemRunCommand">
+      <soap:operation soapAction="http://www.example.org/SystemRunCommand"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemRunCommandTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemRunCommandTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetBootLog">
+      <soap:operation soapAction="http://www.example.org/SystemGetBootLog"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetBootLogTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetBootLogTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetCircularLog">
+      <soap:operation soapAction="http://www.example.org/SystemGetCircularLog"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetCircularLogTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetCircularLogTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemGetBoardMemoryFingerprints">
+      <soap:operation soapAction="http://www.example.org/SystemGetBoardMemoryFingerprints"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetBoardMemoryFingerprintsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemGetBoardMemoryFingerprintsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDeleteFingerprintBoardMemory">
+      <soap:operation soapAction="http://www.example.org/SystemDeleteFingerprintBoardMemory"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteFingerprintBoardMemoryTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDeleteFingerprintBoardMemoryTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemDownloadBoardSettings">
+      <soap:operation soapAction="http://www.example.org/SystemDownloadBoardSettings"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDownloadBoardSettingsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemDownloadBoardSettingsTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SystemUpdateStandardMessage">
+      <soap:operation soapAction="http://www.example.org/SystemUpdateStandardMessage"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemUpdateStandardMessageTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SystemUpdateStandardMessageTokenHeader" part="TokenHeader" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SystemControl">
+    <wsdl:port name="SystemControlSoap" binding="tns:SystemControlSOAP">
+      <soap:address location="http://10.193.5.246:8080/Config/services/SystemControl/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
